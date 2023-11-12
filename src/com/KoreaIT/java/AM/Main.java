@@ -5,41 +5,36 @@ import java.util.Scanner;
 
 public class Main {
   public static void main(String[] args) {
-    System.out.println("== 프로그램 시작==");
+    System.out.println(("== 프로그램 시작 =="));
     Scanner sc = new Scanner(System.in);
-
-    ArrayList<String> articles = new ArrayList<>();
-    int articleCount = 0;
+    int lastArticleId = 0;
 
     while (true) {
       System.out.print("명령어 ) ");
       String cmd = sc.nextLine();
-
-      if (cmd.equals("article list")) {
-        if (articles.isEmpty()) {
-          System.out.println("게시글이 없습니다.");
-        } else {
-          for (int i = 0; i < articles.size(); i++) {
-            System.out.println((i + 1) + "번 글: " + articles.get(i));
-          }
-        }
-      } else if (cmd.equals("article write")) {
+      if (cmd.length() == 0){
+        continue;
+      }
+      if (cmd.equals("system exit")){
+        break;
+      }
+      if (cmd.equals("article list")){
+        System.out.println("게시글이 없습니다.");
+      } else if(cmd.equals("article write")){
+        int id = lastArticleId + 1;
+        lastArticleId = id;
         System.out.print("제목 : ");
         String title = sc.nextLine();
         System.out.print("내용 : ");
-        String content = sc.nextLine();
-        articleCount++;
-        articles.add(articleCount + "번 글 - 제목: " + title + ", 내용: " + content);
-        System.out.println(articleCount + "번 글이 생성되었습니다.");
-      } else if (cmd.equals("system exit")) {
-        break;
+        String body = sc.nextLine();
+//        System.out.printf("%s, %s\n", title, body);
+        System.out.printf("%d번 글이 생성되었습니다.\n", id);
       } else {
         System.out.println("존재하지 않는 명령어입니다.");
       }
     }
 
     sc.close();
-
-    System.out.println("== 프로그램 종료==");
+    System.out.println("== 프로그램 종료 ==");
   }
 }
